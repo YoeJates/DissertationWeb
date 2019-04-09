@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard>
+  <Title Text="Web Dashboard" />
+  <DataSources>
+    <SqlDataSource ComponentName="DataSource1">
+      <Name>sales</Name>
+      <Connection Name="Lappy" FromAppConfig="true" />
+      <Query Type="SelectQuery" Name="sales">
+        <Tables>
+          <Table Name="sales" />
+          <Table Name="smast" />
+          <Relation Type="Inner" Parent="sales" Nested="smast">
+            <KeyColumn Parent="itemno" Nested="Item" />
+          </Relation>
+        </Tables>
+        <Columns>
+          <Column Table="sales" Name="itemno" Alias="Item No" />
+          <Column Table="sales" Name="styleno" Alias="Style No" />
+          <Column Table="sales" Name="date" Alias="Date" />
+          <Column Table="sales" Name="hour" Alias="Hour" />
+          <Column Table="sales" Name="locn" Alias="Location" />
+          <Column Table="sales" Name="soldat" Alias="Value" />
+          <Column Table="sales" Name="qty" Alias="Quantity" />
+          <Column Table="smast" Name="supplier" Alias="Supplier" />
+        </Columns>
+      </Query>
+      <ConnectionOptions CloseConnection="true" />
+    </SqlDataSource>
+  </DataSources>
+  <Items>
+    <Chart ComponentName="chartDashboardItem1" Name="Sales By Location" DataSource="DataSource1" DataMember="sales" Rotated="true">
+      <DataItems>
+        <Measure DataMember="Value" DefaultId="DataItem0" />
+        <Dimension DataMember="Location" ColoringMode="Hue" DefaultId="DataItem1" />
+      </DataItems>
+      <Arguments>
+        <Argument DefaultId="DataItem1" />
+      </Arguments>
+      <Panes>
+        <Pane Name="Pane 1">
+          <Series>
+            <Simple Name="Value">
+              <Value DefaultId="DataItem0" />
+            </Simple>
+          </Series>
+        </Pane>
+      </Panes>
+    </Chart>
+    <Chart ComponentName="chartDashboardItem2" Name="Sales By Supplier" DataSource="DataSource1" DataMember="sales" Rotated="true">
+      <DataItems>
+        <Measure DataMember="Value" DefaultId="DataItem0" />
+        <Dimension DataMember="Supplier" ColoringMode="Hue" TopNEnabled="true" TopNMeasure="DataItem0" DefaultId="DataItem1" />
+      </DataItems>
+      <Arguments>
+        <Argument DefaultId="DataItem1" />
+      </Arguments>
+      <Panes>
+        <Pane Name="Pane 1">
+          <Series>
+            <Simple Name="Value">
+              <Value DefaultId="DataItem0" />
+            </Simple>
+          </Series>
+        </Pane>
+      </Panes>
+      <ChartLegend Visible="false" />
+    </Chart>
+    <Chart ComponentName="chartDashboardItem3" Name="Best Supplier" DataSource="DataSource1" DataMember="sales" Rotated="true">
+      <DataItems>
+        <Measure DataMember="Value" DefaultId="DataItem0" />
+        <Dimension DataMember="Style No" ColoringMode="Hue" TopNEnabled="true" TopNMeasure="DataItem0" DefaultId="DataItem1" />
+      </DataItems>
+      <Arguments>
+        <Argument DefaultId="DataItem1" />
+      </Arguments>
+      <Panes>
+        <Pane Name="Pane 1">
+          <Series>
+            <Simple Name="Value">
+              <Value DefaultId="DataItem0" />
+            </Simple>
+          </Series>
+        </Pane>
+      </Panes>
+      <ChartLegend Visible="false" />
+    </Chart>
+    <Chart ComponentName="chartDashboardItem4" Name="Hourly Sales" DataSource="DataSource1" DataMember="sales">
+      <DataItems>
+        <Measure DataMember="Value" DefaultId="DataItem0" />
+        <Dimension DataMember="Hour" ColoringMode="Hue" DefaultId="DataItem1" />
+      </DataItems>
+      <Arguments>
+        <Argument DefaultId="DataItem1" />
+      </Arguments>
+      <Panes>
+        <Pane Name="Pane 1">
+          <Series>
+            <Simple Name="Value">
+              <Value DefaultId="DataItem0" />
+            </Simple>
+          </Series>
+        </Pane>
+      </Panes>
+    </Chart>
+    <ComboBox ComponentName="comboBoxDashboardItem1" Name="Date Filter" DataSource="DataSource1" DataMember="sales" FilterString="[DataItem0] = #2017-01-01# Or [DataItem0] = #2017-06-23#" EnableSearch="true">
+      <DataItems>
+        <Dimension DataMember="Date" DateTimeGroupInterval="None" DefaultId="DataItem0" />
+      </DataItems>
+      <FilterDimensions>
+        <Dimension DefaultId="DataItem0" />
+      </FilterDimensions>
+    </ComboBox>
+  </Items>
+  <LayoutTree>
+    <LayoutGroup Orientation="Vertical" Weight="100">
+      <LayoutGroup Weight="62.280701754385973">
+        <LayoutItem DashboardItem="comboBoxDashboardItem1" Weight="12.235555685006652" />
+        <LayoutItem DashboardItem="chartDashboardItem1" Weight="112.32584782376529" />
+      </LayoutGroup>
+      <LayoutGroup Orientation="Vertical" Weight="100">
+        <LayoutGroup Weight="136.24689607609619">
+          <LayoutGroup Orientation="Vertical" Weight="96.015495296070853">
+            <LayoutItem DashboardItem="chartDashboardItem2" Weight="138.88888888888889" />
+          </LayoutGroup>
+          <LayoutGroup Weight="103.98450470392913">
+            <LayoutGroup Orientation="Vertical" Weight="100">
+              <LayoutGroup Weight="100">
+                <LayoutGroup Orientation="Vertical" Weight="100">
+                  <LayoutItem DashboardItem="chartDashboardItem3" Weight="137.71929824561403" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+        <LayoutItem DashboardItem="chartDashboardItem4" Weight="63.753103923903808" />
+      </LayoutGroup>
+    </LayoutGroup>
+  </LayoutTree>
+</Dashboard>

@@ -1,0 +1,1 @@
+<%@ Application Codebehind="Global.asax.cs" Inherits="Web_Dashboard_New.Global_asax" Language="C#" %>

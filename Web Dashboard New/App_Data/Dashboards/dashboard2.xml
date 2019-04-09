@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard CurrencyCulture="cy-GB">
+  <Title Text="Sales by Location" />
+  <DataSources>
+    <SqlDataSource Name="stpDashboard" ComponentName="DataSource1">
+      <Connection Name="Lappy" FromAppConfig="true" />
+      <Query Type="StoredProcQuery" Name="stpDashboard">
+        <ProcName>stpDashboard</ProcName>
+      </Query>
+      <ConnectionOptions CloseConnection="true" />
+    </SqlDataSource>
+  </DataSources>
+  <Items>
+    <Chart ComponentName="chartDashboardItem1" Name="Sales by Location Current Week" ParentContainer="pageDashboardItem1" DataSource="DataSource1" DataMember="stpDashboard" Rotated="true">
+      <DataItems>
+        <Measure DataMember="Value" DefaultId="DataItem0" />
+        <Dimension DataMember="Location" SortByMeasure="DataItem0" DefaultId="DataItem1" />
+      </DataItems>
+      <Arguments>
+        <Argument DefaultId="DataItem1" />
+      </Arguments>
+      <Panes>
+        <Pane Name="Pane 1">
+          <AxisY Title="Value" />
+          <Series>
+            <Simple>
+              <Value DefaultId="DataItem0" />
+            </Simple>
+          </Series>
+        </Pane>
+      </Panes>
+      <ChartLegend Visible="false" />
+    </Chart>
+    <TabContainer ComponentName="tabContainerDashboardItem1" Name="Tab Container 1">
+      <Pages>
+        <Page ComponentName="pageDashboardItem1" Name="Page 1" />
+        <Page ComponentName="pageDashboardItem2" Name="Filters" />
+      </Pages>
+    </TabContainer>
+    <ListBox ComponentName="listBoxDashboardItem1" Name="Location" ParentContainer="pageDashboardItem2" DataSource="DataSource1" DataMember="stpDashboard" IsMasterFilterCrossDataSource="true" EnableSearch="true">
+      <DataItems>
+        <Dimension DataMember="Location" DefaultId="DataItem0" />
+      </DataItems>
+      <FilterDimensions>
+        <Dimension DefaultId="DataItem0" />
+      </FilterDimensions>
+    </ListBox>
+    <ListBox ComponentName="listBoxDashboardItem2" Name="Date" ParentContainer="pageDashboardItem2" DataSource="DataSource1" DataMember="stpDashboard" EnableSearch="true">
+      <DataItems>
+        <Dimension DataMember="Date" DateTimeGroupInterval="DayMonthYear" DefaultId="DataItem0" />
+      </DataItems>
+      <FilterDimensions>
+        <Dimension DefaultId="DataItem0" />
+      </FilterDimensions>
+    </ListBox>
+    <ListBox ComponentName="listBoxDashboardItem3" Name="Supplier" DataSource="DataSource1" DataMember="stpDashboard">
+      <DataItems>
+        <Dimension DataMember="Supplier" DefaultId="DataItem0" />
+      </DataItems>
+      <FilterDimensions>
+        <Dimension DefaultId="DataItem0" />
+      </FilterDimensions>
+    </ListBox>
+  </Items>
+  <LayoutTree>
+    <LayoutGroup Orientation="Vertical" Weight="100">
+      <LayoutTabContainer DashboardItem="tabContainerDashboardItem1" Weight="170.97560975609755">
+        <LayoutTabPage DashboardItem="pageDashboardItem1">
+          <LayoutItem DashboardItem="chartDashboardItem1" Weight="100" />
+        </LayoutTabPage>
+        <LayoutTabPage DashboardItem="pageDashboardItem2">
+          <LayoutGroup Orientation="Vertical">
+            <LayoutItem DashboardItem="listBoxDashboardItem2" />
+            <LayoutItem DashboardItem="listBoxDashboardItem3" />
+          </LayoutGroup>
+          <LayoutItem DashboardItem="listBoxDashboardItem1" />
+        </LayoutTabPage>
+      </LayoutTabContainer>
+    </LayoutGroup>
+  </LayoutTree>
+</Dashboard>
